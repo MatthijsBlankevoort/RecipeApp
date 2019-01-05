@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+        requestData();
     }
 
 
@@ -141,5 +146,27 @@ public class MainActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+    }
+
+
+    private void requestData()
+    {
+        Food2ForkApiService service = Food2ForkApiService.retrofit.create(Food2ForkApiService.class);
+        /**
+         * Make an a-synchronous call by enqueing and definition of callbacks.
+         */
+        Call<RecipeList> call = service.getTopRatedRecipes();
+
+        call.enqueue(new Callback<RecipeList>() {
+            @Override
+            public void onResponse(Call<RecipeList> call, Response<RecipeList> response) {
+                RecipeList topratedRecipes = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<RecipeList> call, Throwable t) {
+                Log.d("error",t.toString());
+            }
+        });
     }
 }
