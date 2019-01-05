@@ -22,7 +22,7 @@ public interface Food2ForkApiService {
      * refer to it in a browser and try. This request will deliver a json stream based on month and
      * day of month. It will be put in a DayQuoteTime object by Retrofit.
      */
-    @GET("/api/search?key=b6724c66c110ae6fcef60119ca520173&sort=r&count=10")
+    @GET("/api/search?key=b6724c66c110ae6fcef60119ca520173&sort=r&count=3")
     /**
      * "DayQuoteTime" is the name of the helper class just defined, defining the datamodel, and given as argument.
      * "getTodaysQuote" is the name of the symbol get method. It can be chosen at wish, as long as it is invoked
